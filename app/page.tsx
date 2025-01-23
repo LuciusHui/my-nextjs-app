@@ -1,10 +1,16 @@
-import Button from '@mui/material/Button';
+import React from 'react';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
-export default function Home() {
+const Header = () => {
   return (
-    <div>
-      <h1>Welcome to My App</h1>
-      <Button variant="contained" color="primary">Get Started</Button>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6">Akashic</Typography>
+        <Button color="inherit">Market</Button>
+        <Button color="inherit">Launch App</Button>
+      </Toolbar>
+    </AppBar>
   );
-}
+};
+
+export default Header;
