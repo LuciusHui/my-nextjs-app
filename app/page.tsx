@@ -5,7 +5,7 @@ import Features from './components/Features';
 import Trending from './components/Trending';
 import Footer from './components/Footer';
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <>
       <Header />
