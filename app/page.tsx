@@ -1,16 +1,20 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import Layout from './layout';
+import Header from './components/Header';
+import Banner from './components/Banner';
+import Features from './components/Features';
+import Trending from './components/Trending';
+import Footer from './components/Footer';
 
-const Header = () => {
+const HomePage = () => {
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6">Akashic</Typography>
-        <Button color="inherit">Market</Button>
-        <Button color="inherit">Launch App</Button>
-      </Toolbar>
-    </AppBar>
+    <Layout>
+      <Header />
+      <Banner />
+      <Features />
+      <Trending />
+      <Footer />
+    </Layout>
   );
 };
 
-export default Header;
+export default HomePage;
