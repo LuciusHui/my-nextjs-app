@@ -9,10 +9,11 @@ const Footer = () => {
   return (
     <Box sx={{ backgroundColor: 'rgb(212, 234, 241)', padding: '40px 20px', marginTop: '40px' }}>
       <Grid container spacing={2}>
+
         {/* Logo Section */}
         <Grid item xs={6} md={6}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/path_to_logo.png" alt="Akashic Domains" style={{ width: '150px', marginRight: '10px' }} />
+            <img src="Akashic Domains.png" alt="Akashic Domains" style={{ width: '150px', marginRight: '10px' }} />
           </Box>
         </Grid>
 

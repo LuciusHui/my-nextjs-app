@@ -1,52 +1,196 @@
 "use client";
 
-import React from 'react';
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import * as React from 'react';
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  ToggleButton,
+  ToggleButtonGroup,
+  Button,
+  Menu,
+  MenuItem,
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const Trending = () => {
-  const trendingData = [
-    { alias: 'Alias 1', price: '100.00', volume: '2000', time: '24h' },
-    { alias: 'Alias 2', price: '150.00', volume: '2500', time: '24h' },
-    { alias: 'Alias 3', price: '80.00', volume: '1800', time: '24h' },
-    { alias: 'Alias 4', price: '120.00', volume: '2200', time: '24h' },
-    { alias: 'Alias 5', price: '200.00', volume: '3000', time: '24h' },
-    { alias: 'Alias 6', price: '90.00', volume: '1600', time: '24h' },
-    { alias: 'Alias 7', price: '110.00', volume: '2100', time: '24h' },
-    { alias: 'Alias 8', price: '130.00', volume: '2400', time: '24h' },
-    { alias: 'Alias 9', price: '170.00', volume: '2800', time: '24h' },
-    { alias: 'Alias 10', price: '60.00', volume: '1400', time: '24h' },
+interface MarketItem {
+  id: number;
+  alias: string;
+  price: number;
+  volume: number;
+}
+
+const Trending: React.FC = () => {
+  const marketData: MarketItem[] = [
+    { id: 1, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 2, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 3, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 4, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 5, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 6, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 7, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 8, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 9, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
+    { id: 10, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
   ];
 
+  const leftSideData = marketData.slice(0, 5);
+  const rightSideData = marketData.slice(5);
+  
+  // State to manage the active view
+  const [activeView, setActiveView] = React.useState<'Trending' | 'Top'>('Trending');
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  // Toggle button handler
+  const handleToggle = (event: React.MouseEvent<HTMLElement>, newView: 'Trending' | 'Top') => {
+    if (newView !== null) {
+      setActiveView(newView);
+    }
+  };
+
+  // Handle menu open/close
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Box sx={{ padding: '20px', backgroundColor: 'white', color: 'black' }}>
-      <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-        Market
-      </Typography>
-      <Typography variant="h6" sx={{ marginBottom: '10px' }}>
-        Trending
-      </Typography>
-      <TableContainer>
-        <Table sx={{ minWidth: 650, backgroundColor: 'White' }}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Alias</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Volume</TableCell>
-              <TableCell align="right">24h</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {trendingData.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>{row.alias}</TableCell>
-                <TableCell align="right">{row.price}</TableCell>
-                <TableCell align="right">{row.volume}</TableCell>
-                <TableCell align="right">{row.time}</TableCell>
+    <Box sx={{ mt: 8, bgcolor: 'white', p: 3 }}>
+      <Typography variant="h5" sx={{ mb: 2 }}>Market</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+        <ToggleButtonGroup
+          value={activeView}
+          exclusive
+          onChange={handleToggle}
+          sx={{ borderRadius: '25px', bgcolor: 'white', flexGrow: 1 }}
+        >
+          <ToggleButton
+            value="Trending"
+            sx={{
+              border: '1px solid gray',
+              color: activeView === 'Trending' ? 'white' : 'black',
+              bgcolor: activeView === 'Trending' ? '#007bff' : 'white',
+              borderRadius: '25px 0 0 25px',
+              width: '150px',
+              height: '36px',
+            }}
+          >
+            {activeView === 'Trending' && <CheckIcon sx={{ mr: 1 }} />}
+            Trending
+          </ToggleButton>
+          <ToggleButton
+            value="Top"
+            sx={{
+              border: '1px solid gray',
+              color: activeView === 'Top' ? 'white' : 'black',
+              bgcolor: activeView === 'Top' ? '#007bff' : 'white',
+              borderRadius: '0 25px 25px 0',
+              width: '150px',
+              height: '36px',
+            }}
+          >
+            {activeView === 'Top' && <CheckIcon sx={{ mr: 1 }} />}
+            Top
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <Button
+          variant="outlined"
+          sx={{
+            ml: 2,
+            borderColor: 'gray',
+            color: 'black',
+            display: 'flex', 
+            alignItems: 'center', 
+          }}
+          onClick={handleClick} 
+        >
+          24h
+          <ArrowDropDownIcon sx={{ ml: 1}} />
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>12h</MenuItem>
+          <MenuItem onClick={handleClose}>24h</MenuItem>
+          <MenuItem onClick={handleClose}>48h</MenuItem>
+        </Menu>
+        <Button
+          variant="outlined"
+          sx={{
+            ml: 2,
+            borderColor: 'gray',
+            color: 'black',
+          }}
+        >
+          View All
+        </Button>
+      </Box>
+      
+      <Box sx={{ display: 'flex' }}>
+        <TableContainer component={Paper} sx={{ mr: 6 }}>
+          <Table sx={{ minWidth: 300 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell align="left">Alias</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Volume</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {leftSideData.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.id}</TableCell>
+                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center' }}>
+                    <img src="/asset/stock.png" alt="Stock" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
+                    {item.alias}
+                  </TableCell>
+                  <TableCell align="right">¥{item.price.toFixed(2)}</TableCell>
+                  <TableCell align="right">〒{item.volume.toFixed(2)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 300 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell align="left">Alias</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Volume</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rightSideData.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.id}</TableCell>
+                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center' }}>
+                    <img src="/asset/stock.png" alt="Stock" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
+                    {item.alias}
+                  </TableCell>
+                  <TableCell align="right">¥{item.price.toFixed(2)}</TableCell>
+                  <TableCell align="right">〒{item.volume.toFixed(2)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Box>
   );
 };
