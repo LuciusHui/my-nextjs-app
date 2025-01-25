@@ -11,14 +11,14 @@ const SearchIconButton = () => (
       sx={{ 
         backgroundColor: 'rgb(13, 51, 162)',
         borderRadius: '50%',
-        width: '36px',
-        height: '36px',
+        width: '50px',
+        height: '50px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      <SearchIcon sx={{ color: 'white' }} />
+      <SearchIcon sx={{ color: 'white', fontSize: '24px' }} />
     </Box>
   </InputAdornment>
 );
@@ -28,12 +28,11 @@ const SearchBar = () => (
     variant="outlined" 
     placeholder="Find Your Name" 
     sx={{ 
-      width: '550px', 
-      maxWidth: 410, 
-      height: '57px',
-      marginBottom: 2,
+      width: '100%', 
+      maxWidth:'700px',
+      height: '55px',
       backgroundColor: 'rgba(255, 255, 255, 1)',
-      borderRadius: '50px',
+      borderRadius: '100px',
       '& .MuiOutlinedInput-notchedOutline': {
         borderRadius: '50px',
       },
@@ -57,17 +56,22 @@ const SearchBar = () => (
 
 const Banner = () => {
   return (
-    <Box sx={{ position: 'relative', height: 400, overflow: 'hidden' }}>
-      <Image 
+    <Box sx={{ 
+      position: 'relative', 
+      width: '100%', 
+      height: '100vh',
+      overflow: 'hidden' 
+    }}>
+      <Image
         src="/asset/Banner.png"
         alt="Banner" 
         layout="fill" 
-        objectFit="cover" 
+        objectFit="fill" 
       />
       <Box 
         sx={{
           position: 'absolute',
-          top: '90%',
+          top: '82.5%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           textAlign: 'center',

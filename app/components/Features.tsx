@@ -1,18 +1,33 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+"use client";
 
-const Features = () => {
+import React from 'react';
+import { Box } from '@mui/material';
+import Image from 'next/image';
+
+const Feature = () => {
   return (
-    <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', margin: '20px 0' }}>
-      <Typography variant="h5">Akashic Aliases</Typography>
-      {/* Example Alias */}
-      <Box sx={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0', borderRadius: '5px' }}>
-        <Typography variant="h6">Lorim ipsum</Typography>
-        <Typography variant="body2">Lorem ipsum dolor sit amet consectetur...</Typography>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      padding: 0,
+      backgroundColor: 'white', 
+      boxShadow: 3,
+      width: '100%',
+      height: '100vh',
+      overflow: 'hidden',
+    }}>
+      
+      <Box sx={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+        <Image 
+          src="/asset/Features.png"
+          alt="Features"
+          layout="fill"
+          objectFit="fill"
+        />
       </Box>
-      {/* Add more aliases here */}
     </Box>
   );
 };
 
-export default Features;
+export default Feature;
