@@ -5,16 +5,14 @@ import Features from './components/Features';
 import Trending from './components/Trending';
 import Footer from './components/Footer';
 
-const HomePage: React.FC = () => {
+export default function Home() {
   return (
-    <>
+    <main>
       <Header />
       <Banner />
       <Features />
       <Trending />
       <Footer />
-      </>
+    </main>
   );
-};
-
-export default HomePage;
+}
