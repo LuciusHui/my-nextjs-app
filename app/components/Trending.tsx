@@ -27,6 +27,7 @@ interface MarketItem {
   volume: number;
 }
 
+//10 Arraylist of mock data
 const Trending: React.FC = () => {
   const marketData: MarketItem[] = [
     { id: 1, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
@@ -55,7 +56,7 @@ const Trending: React.FC = () => {
     }
   };
 
-  // Handle menu open/close
+  // Handle menu open/close , only open is shown in this case
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -64,6 +65,7 @@ const Trending: React.FC = () => {
     setAnchorEl(null);
   };
 
+  //Define CSS for the market
   return (
     <Box sx={{ mt: 8, bgcolor: 'white', p: 3 }}>
       <Typography variant="h5" sx={{ mb: 2 }}>Market</Typography>
@@ -138,6 +140,7 @@ const Trending: React.FC = () => {
         </Button>
       </Box>
       
+      //5 rows of data on the left
       <Box sx={{ display: 'flex' }}>
         <TableContainer component={Paper} sx={{ mr: 6, boxShadow: 'none' }}>
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
@@ -165,6 +168,7 @@ const Trending: React.FC = () => {
           </Table>
         </TableContainer>
 
+        //5 rows of data on the right
         <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>

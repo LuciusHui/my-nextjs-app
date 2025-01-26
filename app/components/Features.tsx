@@ -4,6 +4,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 
+//Simply attach the image from figma
 const Features: React.FC = () => {
   return (
     <Box sx={{ 

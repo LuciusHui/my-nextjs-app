@@ -5,6 +5,7 @@ import { Box, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Image from 'next/image';
 
+//Define CSS for the search icon
 const SearchIconButton = () => (
   <InputAdornment position="end">
     <Box 
@@ -23,6 +24,7 @@ const SearchIconButton = () => (
   </InputAdornment>
 );
 
+//Define CSS for the search bar
 const SearchBar = () => (
   <TextField 
     variant="outlined" 
@@ -55,6 +57,7 @@ const SearchBar = () => (
   />
 );
 
+//Attach the background image from figma
 const Banner = () => {
   return (
     <Box sx={{ 

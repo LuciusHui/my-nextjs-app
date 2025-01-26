@@ -6,7 +6,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 
 const ButtonGroup: React.FC = () => (
-  <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+//Define CSS for the buttons
+<div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
     <Button 
       variant="text" 
       startIcon={<HomeIcon />} 
@@ -39,6 +40,7 @@ const Header: React.FC = () => {
   return (
     <AppBar position="absolute" sx={{ top: 0, left: 0, right: 0, backgroundColor: 'transparent', boxShadow: 'none' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
+        //Plain text replace with the logo
         <Typography variant="h6" color="primary">Akashic Domains</Typography>
         <ButtonGroup />
         <IconButton edge="end" color="primary" sx={{ ml: 2 }} onClick={handleMenuClick} aria-label="Menu">
