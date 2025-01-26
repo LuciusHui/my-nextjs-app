@@ -12,8 +12,8 @@ const Footer: React.FC = () => {
 
         {/* Logo Section */}
         <Grid item xs={6} md={6}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src="Akashic Domains.png" alt="Akashic Domains" style={{ width: '150px', marginRight: '10px' }} />
+          <Box sx={{ display: 'flex', alignItems: 'left' }}>
+            <img src="/asset/logo.png" alt="Akashic Domains" style={{ width: '200px', marginRight: '1px' }} />
           </Box>
         </Grid>
 

@@ -40,7 +40,7 @@ const Header: React.FC = () => {
   return (
     <AppBar position="absolute" sx={{ top: 0, left: 0, right: 0, backgroundColor: 'transparent', boxShadow: 'none' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-=        <Typography variant="h6" color="primary">Akashic Domains</Typography>
+        <img src="/asset/logo.png" alt="Logo" style={{ width: '200px' }} />
         <ButtonGroup />
         <IconButton edge="end" color="primary" sx={{ ml: 2 }} onClick={handleMenuClick} aria-label="Menu">
           <MenuIcon />
