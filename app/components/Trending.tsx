@@ -140,7 +140,6 @@ const Trending: React.FC = () => {
         </Button>
       </Box>
       
-      //5 rows of data on the left
       <Box sx={{ display: 'flex' }}>
         <TableContainer component={Paper} sx={{ mr: 6, boxShadow: 'none' }}>
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
@@ -168,8 +167,7 @@ const Trending: React.FC = () => {
           </Table>
         </TableContainer>
 
-        //5 rows of data on the right
-        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+=        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
