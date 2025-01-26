@@ -5,7 +5,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import { Facebook, Twitter, Instagram } from '@mui/icons-material';
 import Link from 'next/link';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <Box sx={{ backgroundColor: 'rgb(212, 234, 241)', padding: '40px 20px', marginTop: '40px' }}>
       <Grid container spacing={2}>

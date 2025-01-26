@@ -4,7 +4,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 
-const Feature = () => {
+const Features: React.FC = () => {
   return (
     <Box sx={{ 
       display: 'flex', 
@@ -22,12 +22,12 @@ const Feature = () => {
         <Image 
           src="/asset/Features.png"
           alt="Features"
-          layout="fill"
-          objectFit="fill"
+          fill
+          style={{ objectFit: "fill" }}
         />
       </Box>
     </Box>
   );
 };
 
-export default Feature;
+export default Features;

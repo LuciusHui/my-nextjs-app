@@ -66,8 +66,8 @@ const Banner = () => {
       <Image
         src="/asset/Banner.png"
         alt="Banner" 
-        layout="fill" 
-        objectFit="fill" 
+        fill
+        style={{ objectFit: "fill" }}
       />
       <Box 
         sx={{

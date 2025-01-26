@@ -5,7 +5,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 
-const ButtonGroup = () => (
+const ButtonGroup: React.FC = () => (
   <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
     <Button 
       variant="text" 
@@ -31,7 +31,7 @@ const ButtonGroup = () => (
   </div>
 );
 
-const Header = () => {
+const Header: React.FC = () => {  
   const handleMenuClick = () => {
     console.log('Menu clicked');
   };
