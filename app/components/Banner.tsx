@@ -27,9 +27,10 @@ const SearchBar = () => (
   <TextField 
     variant="outlined" 
     placeholder="Find Your Name" 
-    sx={{ 
-      width: '100%', 
-      maxWidth:'700px',
+    sx={{
+      mr:'500px', 
+      width: '400%', 
+      maxWidth:'650px',
       height: '55px',
       backgroundColor: 'rgba(255, 255, 255, 1)',
       borderRadius: '100px',

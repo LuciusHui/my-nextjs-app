@@ -139,52 +139,52 @@ const Trending: React.FC = () => {
       </Box>
       
       <Box sx={{ display: 'flex' }}>
-        <TableContainer component={Paper} sx={{ mr: 6 }}>
-          <Table sx={{ minWidth: 300 }} aria-label="simple table">
+        <TableContainer component={Paper} sx={{ mr: 6, boxShadow: 'none' }}>
+          <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell align="left">Alias</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Volume</TableCell>
+              <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
+                <TableCell sx={{ border: 'none' }}>#</TableCell>
+                <TableCell align="left" sx={{ border: 'none' }}>Alias</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Price</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Volume</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {leftSideData.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.id}</TableCell>
-                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center' }}>
+                  <TableCell sx={{ border: 'none' }}>{item.id}</TableCell>
+                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
                     <img src="/asset/stock.png" alt="Stock" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
                     {item.alias}
                   </TableCell>
-                  <TableCell align="right">¥{item.price.toFixed(2)}</TableCell>
-                  <TableCell align="right">〒{item.volume.toFixed(2)}</TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>¥{item.price.toFixed(2)}</TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>〒{item.volume.toFixed(2)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 300 }} aria-label="simple table">
+        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+          <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell align="left">Alias</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Volume</TableCell>
+              <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
+                <TableCell sx={{ border: 'none' }}>#</TableCell>
+                <TableCell align="left" sx={{ border: 'none' }}>Alias</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Price</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Volume</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rightSideData.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.id}</TableCell>
-                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center' }}>
+                  <TableCell sx={{ border: 'none' }}>{item.id}</TableCell>
+                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
                     <img src="/asset/stock.png" alt="Stock" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
                     {item.alias}
                   </TableCell>
-                  <TableCell align="right">¥{item.price.toFixed(2)}</TableCell>
-                  <TableCell align="right">〒{item.volume.toFixed(2)}</TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>¥{item.price.toFixed(2)}</TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>〒{item.volume.toFixed(2)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
