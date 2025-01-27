@@ -11,6 +11,11 @@ import GridViewIcon from '@mui/icons-material/GridView';
 const SearchIconButton = () => (
   <InputAdornment position="end">
     <Box 
+      component="button"
+      onClick={() => {
+        // Add your search functionality here
+        console.log('Search icon clicked');
+      }}
       sx={{ 
         backgroundColor: '#1e00a3',
         borderRadius: '50%',
@@ -19,6 +24,12 @@ const SearchIconButton = () => (
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        cursor: 'pointer',
+        border: 'none',
+        padding: 0,
+        '&:hover': {
+          backgroundColor: '#170082',
+        },
       }}
     >
       <SearchIcon sx={{ color: 'white', fontSize: '20px' }} />
