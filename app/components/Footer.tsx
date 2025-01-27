@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
       {/* Follow Us and Trademark Section */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '40px', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h6" sx={{ marginRight: '25px' }}>Follow us</Typography>
+          <Typography variant="h7" sx={{ mr: '30px', ml: '30px' }}>Follow us</Typography>
           <Box sx={{ display: 'flex', gap: '20px' }}>
             <Link href="#twitter" style={{ textDecoration: 'none' }}>
               <Twitter />
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
       </Box>
 
       {/* Trademark Notice */}
-      <Box sx={{ textAlign: 'right', marginRight: '30px', marginTop: '20px', color: '#777' }}>
+      <Box sx={{ textAlign: 'right', marginRight: '30px', marginTop: '20px', color: 'black' }}>
         <Typography variant="body2">©2024 Akashic, Inc.</Typography>
       </Box>
     </Box>
