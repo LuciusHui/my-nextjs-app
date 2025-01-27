@@ -249,7 +249,7 @@ const Banner = () => {
             display: { xs: 'none', md: 'block' }
           }}>
             <img 
-              src="/asset/crypto.png" 
+              src="/asset/123.png" 
               alt="crypto" 
               style={{ 
                 width: '100%',
