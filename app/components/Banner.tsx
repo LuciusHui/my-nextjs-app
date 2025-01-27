@@ -1,11 +1,12 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, TextField, InputAdornment, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import StarIcon from '@mui/icons-material/Star';
 import PersonIcon from '@mui/icons-material/Person';
 import GridViewIcon from '@mui/icons-material/GridView';
+import { useRouter } from 'next/navigation';
 
 // Define CSS for the search icon
 const SearchIconButton = () => (
@@ -38,42 +39,99 @@ const SearchIconButton = () => (
 );
 
 // Define CSS for the search bar
-const SearchBar = () => (
-  <Box sx={{ 
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    mt: 4
-  }}>
-    <TextField 
-      variant="outlined" 
-      placeholder="Find Your Name" 
-      sx={{
-        width: '100%', 
-        maxWidth: { xs: '100%', sm: '600px', md: '800px' },
-        backgroundColor: 'white',
-        borderRadius: '100px',
-        '& .MuiOutlinedInput-root': {
+const SearchBar = () => {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`/api/coins/search?name=${encodeURIComponent(searchValue)}`);
+      const data = await response.json();
+      
+      if (data.coin) {
+        router.push(`/coin/${data.coin.symbol.toLowerCase()}`);
+      } else {
+        setError('Please enter a valid name');
+        setTimeout(() => setError(''), 3000); // Clear error after 3 seconds
+      }
+    } catch (err) {
+      setError('Please enter a valid name');
+      setTimeout(() => setError(''), 3000);
+    }
+  };
+
+  return (
+    <Box sx={{ 
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      mt: 4
+    }}>
+      <TextField 
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch();
+          }
+        }}
+        variant="outlined" 
+        placeholder="Find Your Name"
+        error={Boolean(error)}
+        helperText={error}
+        sx={{
+          width: '100%', 
+          maxWidth: { xs: '100%', sm: '600px', md: '800px' },
+          backgroundColor: 'white',
           borderRadius: '100px',
-          height: { xs: '45px', sm: '55px' },
-          '& fieldset': {
-            borderColor: 'rgba(63, 223, 235, 0.8)',
+          '& .MuiOutlinedInput-root': {
             borderRadius: '100px',
+            height: { xs: '45px', sm: '55px' },
+            '& fieldset': {
+              borderColor: 'rgba(63, 223, 235, 0.8)',
+              borderRadius: '100px',
+            },
+            '&:hover fieldset': {
+              borderColor: 'rgb(123, 135, 204)',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#1e00a3',
+            },
           },
-          '&:hover fieldset': {
-            borderColor: 'rgb(123, 135, 204)',
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: '#1e00a3',
-          },
-        },
-      }}
-      InputProps={{
-        endAdornment: <SearchIconButton />,
-      }}
-    />
-  </Box>
-);
+        }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <Box 
+                component="button"
+                onClick={handleSearch}
+                sx={{ 
+                  backgroundColor: '#1e00a3',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  border: 'none',
+                  padding: 0,
+                  '&:hover': {
+                    backgroundColor: '#170082',
+                  },
+                }}
+              >
+                <SearchIcon sx={{ color: 'white', fontSize: '20px' }} />
+              </Box>
+            </InputAdornment>
+          ),
+        }}
+      />
+    </Box>
+  );
+};
 
 const StatBox = ({ icon: Icon, number, label }: { icon: any, number: string, label: string }) => (
   <Box sx={{ 
