@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = searchParams.get('page') || '1';
-  const perPage = '50'; // Increased number of coins per page
+  const perPage = '50';
   const API_KEY = process.env.NEXT_PUBLIC_COINLIB_API_KEY;
 
   try {
