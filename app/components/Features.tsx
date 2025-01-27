@@ -6,6 +6,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import StarIcon from '@mui/icons-material/Star';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
+// Card component for displaying aliases
 const AliasCard = ({ name, IconComponent }: { name: string; IconComponent: React.ElementType }) => (
   <Box sx={{
     backgroundColor: 'white',
@@ -41,8 +42,7 @@ const Features: React.FC = () => {
         gap: { xs: 4, md: 8 },
         alignItems: 'center',
       }}>
-
-        {/* Left Paragraph */}
+        {/* Left Section */}
         <Box sx={{ textAlign: 'left' }}>
           <Typography variant="h5" sx={{ 
             fontWeight: 'bold',
@@ -51,7 +51,7 @@ const Features: React.FC = () => {
           }}>
             Akashic Aliases
           </Typography>
-          <Typography variant='h7' sx={{ 
+          <Typography variant="body1" sx={{ 
             color: '#555',
             lineHeight: 1.6,
           }}>
@@ -60,7 +60,7 @@ const Features: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Center Graphic with Logo */}
+        {/* Center Section with Logo */}
         <Box sx={{ 
           position: 'relative',
           height: '500px',
@@ -68,7 +68,6 @@ const Features: React.FC = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-
           <Box sx={{
             width: '350px',
             height: '450px',
@@ -89,7 +88,7 @@ const Features: React.FC = () => {
             />
           </Box>
           
-          {/* Complementary Cards */}
+          {/* Floating Cards */}
           <Box sx={{ 
             position: 'absolute',
             top: '55%',
@@ -97,7 +96,7 @@ const Features: React.FC = () => {
             transform: 'translateX(-30%)',
             zIndex: 2,
           }}>
-            <AliasCard name={"Loremip\nsum"} IconComponent={CheckCircleIcon} />
+            <AliasCard name="Loremipsum" IconComponent={CheckCircleIcon} />
           </Box>
           
           <Box sx={{ 
@@ -107,18 +106,18 @@ const Features: React.FC = () => {
             transform: 'translateX(20%)',
             zIndex: 2,
           }}>
-            <AliasCard name={"Loremipsu\nmdsfew"} IconComponent={StarIcon} />
+            <AliasCard name="Loremipsumdsfew" IconComponent={StarIcon} />
           </Box>
         </Box>
 
-        {/* Right Paragraph */}
+        {/* Right Section */}
         <Box sx={{ 
           bottom: '30%',
           textAlign: 'left',
           position: 'relative',
           zIndex: 5
         }}>
-          <Typography variant='h7' sx={{ 
+          <Typography variant="body1" sx={{ 
             color: '#555',
             lineHeight: 1.6,
           }}>

@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
       {/* Follow Us and Trademark Section */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '40px', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h7" sx={{ mr: '30px', ml: '30px' }}>Follow us</Typography>
+          <Typography variant="h6" sx={{ mr: '30px', ml: '30px' }}>Follow us</Typography>
           <Box sx={{ display: 'flex', gap: '20px' }}>
             <Link href="#twitter" style={{ textDecoration: 'none' }}>
               <Twitter />
