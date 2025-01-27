@@ -41,7 +41,8 @@ const Features: React.FC = () => {
         gap: { xs: 4, md: 8 },
         alignItems: 'center',
       }}>
-        {/* Left Content */}
+
+        {/* Left Paragraph */}
         <Box sx={{ textAlign: 'left' }}>
           <Typography variant="h5" sx={{ 
             fontWeight: 'bold',
@@ -59,7 +60,7 @@ const Features: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Center Content */}
+        {/* Center Graphic with Logo */}
         <Box sx={{ 
           position: 'relative',
           height: '500px',
@@ -67,7 +68,7 @@ const Features: React.FC = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          {/* Main gradient box */}
+
           <Box sx={{
             width: '350px',
             height: '450px',
@@ -88,7 +89,7 @@ const Features: React.FC = () => {
             />
           </Box>
           
-          {/* Floating Cards */}
+          {/* Complementary Cards */}
           <Box sx={{ 
             position: 'absolute',
             top: '55%',
@@ -110,7 +111,7 @@ const Features: React.FC = () => {
           </Box>
         </Box>
 
-        {/* Right Content */}
+        {/* Right Paragraph */}
         <Box sx={{ 
           bottom: '30%',
           textAlign: 'left',

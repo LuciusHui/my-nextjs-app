@@ -14,7 +14,6 @@ const SearchIconButton = () => (
     <Box 
       component="button"
       onClick={() => {
-        // Add your search functionality here
         console.log('Search icon clicked');
       }}
       sx={{ 
@@ -62,6 +61,7 @@ const SearchBar = () => {
   };
 
   return (
+    /* Define CSS for Search Bar */
     <Box sx={{ 
       width: '100%',
       display: 'flex',
@@ -133,6 +133,7 @@ const SearchBar = () => {
   );
 };
 
+// Define CSS for Statistic Boxes
 const StatBox = ({ icon: Icon, number, label }: { icon: any, number: string, label: string }) => (
   <Box sx={{ 
     display: 'flex', 
@@ -173,6 +174,7 @@ const StatBox = ({ icon: Icon, number, label }: { icon: any, number: string, lab
   </Box>
 );
 
+// Define CSS for Text and Graphic
 const Banner = () => {
   return (
     <Box 

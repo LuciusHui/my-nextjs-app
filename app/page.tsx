@@ -5,6 +5,7 @@ import Features from './components/Features';
 import Trending from './components/Trending';
 import Footer from './components/Footer';
 
+// Main application component
 export default function Home() {
   return (
     <main>

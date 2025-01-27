@@ -41,6 +41,7 @@ const Trending: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [timePeriod, setTimePeriod] = React.useState<'24h' | '1h'>('24h');
 
+  // Fetch Market Data
   const fetchMarketData = async (period: '24h' | '1h') => {
     try {
       const response = await fetch(`/api/coins?period=${period}`);
@@ -68,7 +69,7 @@ const Trending: React.FC = () => {
     fetchMarketData(timePeriod);
   }, [timePeriod]);
 
-  // Ensure we only use 10 coins total, 5 per side
+  // 10 coins total, 5 per side
   const leftSideData = marketData.slice(0, 5);
   const rightSideData = marketData.slice(5, 10);
   
@@ -92,10 +93,12 @@ const Trending: React.FC = () => {
     setAnchorEl(null);
   };
 
+  // View All Button Navigation
   const handleViewAll = () => {
-    router.push('/market'); // This will navigate to the market page
+    router.push('/market'); 
   };
 
+  // Time Period Change
   const handleTimeChange = (newPeriod: '24h' | '1h') => {
     setTimePeriod(newPeriod);
   };
@@ -220,6 +223,7 @@ const Trending: React.FC = () => {
         </MenuItem>
       </Menu>
       
+      {/* Define CSS for Table */}
       <Box sx={{ display: 'flex' }}>
         <TableContainer component={Paper} sx={{ mr: 6, boxShadow: 'none' }}>
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
