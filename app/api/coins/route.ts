@@ -24,7 +24,8 @@ export async function GET(request: Request) {
         ...coin,
         rank: index + 1,
         delta_1h: coin.delta_1h || '0.00',
-        delta_24h: coin.delta_24h || '0.00'
+        delta_24h: coin.delta_24h || '0.00',
+        icon: `https://coinlib.io/static/img/coins/${coin.symbol.toLowerCase()}.png`
       }))
     };
 

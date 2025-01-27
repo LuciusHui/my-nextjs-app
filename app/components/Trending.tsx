@@ -31,6 +31,7 @@ interface MarketItem {
   delta_24h: string;
   delta_1h: string;
   rank: number;
+  icon?: string;
 }
 
 const Trending: React.FC = () => {
@@ -102,13 +103,22 @@ const Trending: React.FC = () => {
   //Define CSS for the market
   return (
     <Box sx={{ mt: 8, bgcolor: 'white', p: 3 }}>
-      <Typography variant="h5" sx={{ mb: 2 }}>Market</Typography>
+      <Typography 
+        variant="h5" 
+        sx={{ 
+          mb: 2, 
+          color: '#555',
+          fontWeight: 'bold'
+        }}
+      >
+        Market
+      </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
         <ButtonGroup variant="outlined" sx={{ height: 36 }}>
           <Button
             sx={{
               backgroundColor: activeView === 'Trending' ? '#0088CC' : 'transparent',
-              color: activeView === 'Trending' ? 'white' : 'black',
+              color: activeView === 'Trending' ? 'white' : '#555',
               textTransform: 'none',
               '&:hover': {
                 backgroundColor: activeView === 'Trending' ? '#0088CC' : 'transparent',
@@ -121,7 +131,7 @@ const Trending: React.FC = () => {
           <Button
             sx={{
               backgroundColor: activeView === 'Top' ? '#0088CC' : 'transparent',
-              color: activeView === 'Top' ? 'white' : 'black',
+              color: activeView === 'Top' ? 'white' : '#555',
               textTransform: 'none',
               '&:hover': {
                 backgroundColor: activeView === 'Top' ? '#0088CC' : 'transparent',
@@ -136,12 +146,12 @@ const Trending: React.FC = () => {
         <Box sx={{ display: 'flex', gap: 1 }}>
           <Button
             variant="outlined"
-            endIcon={<KeyboardArrowDownIcon />}
+            endIcon={<KeyboardArrowDownIcon sx={{ color: '#555' }} />}
             onClick={handleClick}
             sx={{
               textTransform: 'none',
               borderColor: '#E5E7EB',
-              color: 'black',
+              color: '#555',
               height: 36,
               '&:hover': {
                 borderColor: '#E5E7EB',
@@ -156,7 +166,7 @@ const Trending: React.FC = () => {
             sx={{
               textTransform: 'none',
               borderColor: '#E5E7EB',
-              color: 'black',
+              color: '#555',
               height: 36,
               '&:hover': {
                 borderColor: '#E5E7EB',
@@ -189,6 +199,7 @@ const Trending: React.FC = () => {
           }}
           sx={{ 
             minWidth: 100,
+            color: '#555',
             '&:hover': { backgroundColor: '#f5f5f5' }
           }}
         >
@@ -201,6 +212,7 @@ const Trending: React.FC = () => {
           }}
           sx={{ 
             minWidth: 100,
+            color: '#555',
             '&:hover': { backgroundColor: '#f5f5f5' }
           }}
         >
@@ -213,17 +225,17 @@ const Trending: React.FC = () => {
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
-                <TableCell sx={{ border: 'none' }}>#</TableCell>
-                <TableCell align="left" sx={{ border: 'none' }}>Name</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Price</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Volume 24h</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Change 24h</TableCell>
+                <TableCell sx={{ border: 'none', color: '#555' }}>#</TableCell>
+                <TableCell align="left" sx={{ border: 'none', color: '#555' }}>Name</TableCell>
+                <TableCell align="right" sx={{ border: 'none', color: '#555' }}>Price</TableCell>
+                <TableCell align="right" sx={{ border: 'none', color: '#555' }}>Volume 24h</TableCell>
+                <TableCell align="right" sx={{ border: 'none', color: '#555' }}>Change {timePeriod}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={5} align="center">Loading...</TableCell>
+                  <TableCell colSpan={5} align="center" sx={{ color: '#555' }}>Loading...</TableCell>
                 </TableRow>
               ) : error ? (
                 <TableRow>
@@ -232,18 +244,22 @@ const Trending: React.FC = () => {
               ) : (
                 leftSideData.map((item) => (
                   <TableRow key={item.symbol}>
-                    <TableCell sx={{ border: 'none' }}>{item.rank}</TableCell>
-                    <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
-                      <img src={`/asset/${item.symbol.toLowerCase()}.png`} alt={item.symbol} 
-                           style={{ width: '40px', height: '40px', marginRight: '8px' }} 
-                           onError={(e) => {
-                             (e.target as HTMLImageElement).src = "/asset/stock.png"
-                           }}
+                    <TableCell sx={{ border: 'none', color: '#555' }}>{item.rank}</TableCell>
+                    <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none', color: '#555' }}>
+                      <img 
+                        src={item.icon || `https://coinlib.io/static/img/coins/${item.symbol.toLowerCase()}.png`}
+                        alt={item.symbol} 
+                        style={{ 
+                          width: '40px', 
+                          height: '40px', 
+                          marginRight: '8px',
+                          borderRadius: '50%'  // Optional: if you want circular icons
+                        }} 
                       />
                       {item.name}
                     </TableCell>
-                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.price).toFixed(2)}</TableCell>
-                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.volume_24h).toLocaleString()}</TableCell>
+                    <TableCell align="right" sx={{ border: 'none', color: '#555' }}>${parseFloat(item.price).toFixed(2)}</TableCell>
+                    <TableCell align="right" sx={{ border: 'none', color: '#555' }}>${parseFloat(item.volume_24h).toLocaleString()}</TableCell>
                     <TableCell align="right" sx={{ 
                       border: 'none',
                       color: parseFloat(timePeriod === '24h' ? item.delta_24h : item.delta_1h) >= 0 ? 'green' : 'red'
@@ -262,17 +278,17 @@ const Trending: React.FC = () => {
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
-                <TableCell sx={{ border: 'none' }}>#</TableCell>
-                <TableCell align="left" sx={{ border: 'none' }}>Name</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Price</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Volume 24h</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Change 24h</TableCell>
+                <TableCell sx={{ border: 'none', color: '#555' }}>#</TableCell>
+                <TableCell align="left" sx={{ border: 'none', color: '#555' }}>Name</TableCell>
+                <TableCell align="right" sx={{ border: 'none', color: '#555' }}>Price</TableCell>
+                <TableCell align="right" sx={{ border: 'none', color: '#555' }}>Volume 24h</TableCell>
+                <TableCell align="right" sx={{ border: 'none', color: '#555' }}>Change {timePeriod}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={5} align="center">Loading...</TableCell>
+                  <TableCell colSpan={5} align="center" sx={{ color: '#555' }}>Loading...</TableCell>
                 </TableRow>
               ) : error ? (
                 <TableRow>
@@ -281,18 +297,22 @@ const Trending: React.FC = () => {
               ) : (
                 rightSideData.map((item) => (
                   <TableRow key={item.symbol}>
-                    <TableCell sx={{ border: 'none' }}>{item.rank}</TableCell>
-                    <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
-                      <img src={`/asset/${item.symbol.toLowerCase()}.png`} alt={item.symbol} 
-                           style={{ width: '40px', height: '40px', marginRight: '8px' }} 
-                           onError={(e) => {
-                             (e.target as HTMLImageElement).src = "/asset/stock.png"
-                           }}
+                    <TableCell sx={{ border: 'none', color: '#555' }}>{item.rank}</TableCell>
+                    <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none', color: '#555' }}>
+                      <img 
+                        src={item.icon || `https://coinlib.io/static/img/coins/${item.symbol.toLowerCase()}.png`}
+                        alt={item.symbol} 
+                        style={{ 
+                          width: '40px', 
+                          height: '40px', 
+                          marginRight: '8px',
+                          borderRadius: '50%'  // Optional: if you want circular icons
+                        }} 
                       />
                       {item.name}
                     </TableCell>
-                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.price).toFixed(2)}</TableCell>
-                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.volume_24h).toLocaleString()}</TableCell>
+                    <TableCell align="right" sx={{ border: 'none', color: '#555' }}>${parseFloat(item.price).toFixed(2)}</TableCell>
+                    <TableCell align="right" sx={{ border: 'none', color: '#555' }}>${parseFloat(item.volume_24h).toLocaleString()}</TableCell>
                     <TableCell align="right" sx={{ 
                       border: 'none',
                       color: parseFloat(timePeriod === '24h' ? item.delta_24h : item.delta_1h) >= 0 ? 'green' : 'red'
