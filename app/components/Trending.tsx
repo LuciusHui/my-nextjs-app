@@ -16,34 +16,60 @@ import {
   Button,
   Menu,
   MenuItem,
+  ButtonGroup,
 } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useRouter } from 'next/navigation';
 
 interface MarketItem {
-  id: number;
-  alias: string;
-  price: number;
-  volume: number;
+  symbol: string;
+  name: string;
+  price: string;
+  volume_24h: string;
+  delta_24h: string;
+  delta_1h: string;
+  rank: number;
 }
 
-//10 Arraylist of mock data
 const Trending: React.FC = () => {
-  const marketData: MarketItem[] = [
-    { id: 1, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 2, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 3, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 4, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 5, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 6, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 7, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 8, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 9, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-    { id: 10, alias: 'helloworldtestinghellow', price: 100, volume: 100 },
-  ];
+  const router = useRouter();
+  const [marketData, setMarketData] = React.useState<MarketItem[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [timePeriod, setTimePeriod] = React.useState<'24h' | '1h'>('24h');
 
+  const fetchMarketData = async (period: '24h' | '1h') => {
+    try {
+      const response = await fetch(`/api/coins?period=${period}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.coins) {
+        setMarketData(data.coins);
+      } else {
+        setError('Invalid data format received from API');
+      }
+    } catch (err) {
+      console.error('API Error:', err);
+      setError('Error fetching market data. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchMarketData(timePeriod);
+  }, [timePeriod]);
+
+  // Ensure we only use 10 coins total, 5 per side
   const leftSideData = marketData.slice(0, 5);
-  const rightSideData = marketData.slice(5);
+  const rightSideData = marketData.slice(5, 10);
   
   // State to manage the active view
   const [activeView, setActiveView] = React.useState<'Trending' | 'Top'>('Trending');
@@ -65,80 +91,122 @@ const Trending: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const handleViewAll = () => {
+    router.push('/market'); // This will navigate to the market page
+  };
+
+  const handleTimeChange = (newPeriod: '24h' | '1h') => {
+    setTimePeriod(newPeriod);
+  };
+
   //Define CSS for the market
   return (
     <Box sx={{ mt: 8, bgcolor: 'white', p: 3 }}>
       <Typography variant="h5" sx={{ mb: 2 }}>Market</Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-        <ToggleButtonGroup
-          value={activeView}
-          exclusive
-          onChange={handleToggle}
-          sx={{ borderRadius: '25px', bgcolor: 'white', flexGrow: 1 }}
-        >
-          <ToggleButton
-            value="Trending"
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+        <ButtonGroup variant="outlined" sx={{ height: 36 }}>
+          <Button
             sx={{
-              border: '1px solid gray',
+              backgroundColor: activeView === 'Trending' ? '#0088CC' : 'transparent',
               color: activeView === 'Trending' ? 'white' : 'black',
-              bgcolor: activeView === 'Trending' ? '#007bff' : 'white',
-              borderRadius: '25px 0 0 25px',
-              width: '150px',
-              height: '36px',
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: activeView === 'Trending' ? '#0088CC' : 'transparent',
+              }
             }}
+            onClick={() => setActiveView('Trending')}
           >
-            {activeView === 'Trending' && <CheckIcon sx={{ mr: 1 }} />}
             Trending
-          </ToggleButton>
-          <ToggleButton
-            value="Top"
+          </Button>
+          <Button
             sx={{
-              border: '1px solid gray',
+              backgroundColor: activeView === 'Top' ? '#0088CC' : 'transparent',
               color: activeView === 'Top' ? 'white' : 'black',
-              bgcolor: activeView === 'Top' ? '#007bff' : 'white',
-              borderRadius: '0 25px 25px 0',
-              width: '150px',
-              height: '36px',
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: activeView === 'Top' ? '#0088CC' : 'transparent',
+              }
+            }}
+            onClick={() => setActiveView('Top')}
+          >
+            Top
+          </Button>
+        </ButtonGroup>
+
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button
+            variant="outlined"
+            endIcon={<KeyboardArrowDownIcon />}
+            onClick={handleClick}
+            sx={{
+              textTransform: 'none',
+              borderColor: '#E5E7EB',
+              color: 'black',
+              height: 36,
+              '&:hover': {
+                borderColor: '#E5E7EB',
+                backgroundColor: 'transparent',
+              }
             }}
           >
-            {activeView === 'Top' && <CheckIcon sx={{ mr: 1 }} />}
-            Top
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <Button
-          variant="outlined"
-          sx={{
-            ml: 2,
-            borderColor: 'gray',
-            color: 'black',
-            display: 'flex', 
-            alignItems: 'center', 
+            {timePeriod}
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              textTransform: 'none',
+              borderColor: '#E5E7EB',
+              color: 'black',
+              height: 36,
+              '&:hover': {
+                borderColor: '#E5E7EB',
+                backgroundColor: 'transparent',
+              }
+            }}
+            onClick={handleViewAll}
+          >
+            View All
+          </Button>
+        </Box>
+      </Box>
+
+      {/* Time period menu */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        PaperProps={{
+          sx: {
+            mt: 1,
+            boxShadow: '0px 2px 8px rgba(0,0,0,0.15)',
+          }
+        }}
+      >
+        <MenuItem 
+          onClick={() => {
+            handleTimeChange('1h');
+            handleClose();
           }}
-          onClick={handleClick} 
+          sx={{ 
+            minWidth: 100,
+            '&:hover': { backgroundColor: '#f5f5f5' }
+          }}
+        >
+          1h
+        </MenuItem>
+        <MenuItem 
+          onClick={() => {
+            handleTimeChange('24h');
+            handleClose();
+          }}
+          sx={{ 
+            minWidth: 100,
+            '&:hover': { backgroundColor: '#f5f5f5' }
+          }}
         >
           24h
-          <ArrowDropDownIcon sx={{ ml: 1}} />
-        </Button>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>12h</MenuItem>
-          <MenuItem onClick={handleClose}>24h</MenuItem>
-          <MenuItem onClick={handleClose}>48h</MenuItem>
-        </Menu>
-        <Button
-          variant="outlined"
-          sx={{
-            ml: 2,
-            borderColor: 'gray',
-            color: 'black',
-          }}
-        >
-          View All
-        </Button>
-      </Box>
+        </MenuItem>
+      </Menu>
       
       <Box sx={{ display: 'flex' }}>
         <TableContainer component={Paper} sx={{ mr: 6, boxShadow: 'none' }}>
@@ -146,49 +214,95 @@ const Trending: React.FC = () => {
             <TableHead>
               <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
                 <TableCell sx={{ border: 'none' }}>#</TableCell>
-                <TableCell align="left" sx={{ border: 'none' }}>Alias</TableCell>
+                <TableCell align="left" sx={{ border: 'none' }}>Name</TableCell>
                 <TableCell align="right" sx={{ border: 'none' }}>Price</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Volume</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Volume 24h</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Change 24h</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {leftSideData.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell sx={{ border: 'none' }}>{item.id}</TableCell>
-                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
-                    <img src="/asset/stock.png" alt="Stock" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
-                    {item.alias}
-                  </TableCell>
-                  <TableCell align="right" sx={{ border: 'none' }}>¥{item.price.toFixed(2)}</TableCell>
-                  <TableCell align="right" sx={{ border: 'none' }}>〒{item.volume.toFixed(2)}</TableCell>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">Loading...</TableCell>
                 </TableRow>
-              ))}
+              ) : error ? (
+                <TableRow>
+                  <TableCell colSpan={5} align="center" sx={{ color: 'red' }}>{error}</TableCell>
+                </TableRow>
+              ) : (
+                leftSideData.map((item) => (
+                  <TableRow key={item.symbol}>
+                    <TableCell sx={{ border: 'none' }}>{item.rank}</TableCell>
+                    <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
+                      <img src={`/asset/${item.symbol.toLowerCase()}.png`} alt={item.symbol} 
+                           style={{ width: '40px', height: '40px', marginRight: '8px' }} 
+                           onError={(e) => {
+                             (e.target as HTMLImageElement).src = "/asset/stock.png"
+                           }}
+                      />
+                      {item.name}
+                    </TableCell>
+                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.price).toFixed(2)}</TableCell>
+                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.volume_24h).toLocaleString()}</TableCell>
+                    <TableCell align="right" sx={{ 
+                      border: 'none',
+                      color: parseFloat(timePeriod === '24h' ? item.delta_24h : item.delta_1h) >= 0 ? 'green' : 'red'
+                    }}>
+                      {parseFloat(timePeriod === '24h' ? item.delta_24h : item.delta_1h) >= 0 ? '+' : ''}
+                      {timePeriod === '24h' ? item.delta_24h : item.delta_1h}%
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
 
-=        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
           <Table sx={{ minWidth: 300, border: 'none' }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ borderBottom: '2px solid #aeafbd' }}>
                 <TableCell sx={{ border: 'none' }}>#</TableCell>
-                <TableCell align="left" sx={{ border: 'none' }}>Alias</TableCell>
+                <TableCell align="left" sx={{ border: 'none' }}>Name</TableCell>
                 <TableCell align="right" sx={{ border: 'none' }}>Price</TableCell>
-                <TableCell align="right" sx={{ border: 'none' }}>Volume</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Volume 24h</TableCell>
+                <TableCell align="right" sx={{ border: 'none' }}>Change 24h</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rightSideData.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell sx={{ border: 'none' }}>{item.id}</TableCell>
-                  <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
-                    <img src="/asset/stock.png" alt="Stock" style={{ width: '40px', height: '40px', marginRight: '8px' }} />
-                    {item.alias}
-                  </TableCell>
-                  <TableCell align="right" sx={{ border: 'none' }}>¥{item.price.toFixed(2)}</TableCell>
-                  <TableCell align="right" sx={{ border: 'none' }}>〒{item.volume.toFixed(2)}</TableCell>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">Loading...</TableCell>
                 </TableRow>
-              ))}
+              ) : error ? (
+                <TableRow>
+                  <TableCell colSpan={5} align="center" sx={{ color: 'red' }}>{error}</TableCell>
+                </TableRow>
+              ) : (
+                rightSideData.map((item) => (
+                  <TableRow key={item.symbol}>
+                    <TableCell sx={{ border: 'none' }}>{item.rank}</TableCell>
+                    <TableCell align="left" sx={{ display: 'flex', alignItems: 'center', border: 'none' }}>
+                      <img src={`/asset/${item.symbol.toLowerCase()}.png`} alt={item.symbol} 
+                           style={{ width: '40px', height: '40px', marginRight: '8px' }} 
+                           onError={(e) => {
+                             (e.target as HTMLImageElement).src = "/asset/stock.png"
+                           }}
+                      />
+                      {item.name}
+                    </TableCell>
+                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.price).toFixed(2)}</TableCell>
+                    <TableCell align="right" sx={{ border: 'none' }}>${parseFloat(item.volume_24h).toLocaleString()}</TableCell>
+                    <TableCell align="right" sx={{ 
+                      border: 'none',
+                      color: parseFloat(timePeriod === '24h' ? item.delta_24h : item.delta_1h) >= 0 ? 'green' : 'red'
+                    }}>
+                      {parseFloat(timePeriod === '24h' ? item.delta_24h : item.delta_1h) >= 0 ? '+' : ''}
+                      {timePeriod === '24h' ? item.delta_24h : item.delta_1h}%
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
